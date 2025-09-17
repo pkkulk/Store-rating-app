@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaRegUserCircle } from "react-icons/fa";
+
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -21,7 +23,6 @@ export default function Navbar() {
 
   return (
     <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center shadow-md">
-   
       <Link to="/" className="text-xl font-bold">
         🏪 Store Rating App
       </Link>
@@ -37,43 +38,55 @@ export default function Navbar() {
             </Link>
           </>
         ) : (
-          <div className="relative group">
-            <button className="flex items-center gap-2 focus:outline-none">
-             <span><FaRegUserCircle size={34} /></span>
+          <div className="relative">
+            <button
+              className="flex items-center gap-2 focus:outline-none"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <FaRegUserCircle size={34} />
             </button>
 
-            <div className="absolute right-0 mt-1 w-56 bg-white text-black rounded-lg shadow-lg hidden group-hover:block">
-    
-              {(user.role === "admin" || user.role === "owner") && (
-                <Link
-                  to={dashboardLink}
-                  className="block px-4 py-2 hover:bg-gray-100"
-                >
-                  My Dashboard
-                </Link>
-              )}
+            {menuOpen && (
+              <div className="absolute right-0 mt-1 w-56 bg-white text-black rounded-lg shadow-lg z-50">
+                {(user.role === "admin" || user.role === "owner") && (
+                  <Link
+                    to={dashboardLink}
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    My Dashboard
+                  </Link>
+                )}
 
-              {(user.role === "user" || user.role=="owner") && (
+                {(user.role === "user" || user.role === "owner") && (
+                  <Link
+                    to="/stores"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Add Store
+                  </Link>
+                )}
+
                 <Link
-                  to="/stores"
+                  to="/update-password"
                   className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={() => setMenuOpen(false)}
                 >
-                  Add Store
+                  Update Password
                 </Link>
-              )}
-              <Link
-                to={`/update-password`}
-                className="block px-4 py-2 hover:bg-gray-100"
-              >
-                Update Password
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-              >
-                Logout
-              </button>
-            </div>
+
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

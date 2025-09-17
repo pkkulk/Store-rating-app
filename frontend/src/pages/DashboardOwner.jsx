@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import api from "../api";
 import { AuthContext } from "../context/AuthContext";
-import UpdatePassword from "./UpdatePassword"; // Import the new component
 
 export default function OwnerDashboard() {
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [store, setStore] = useState(null);
   const [ratings, setRatings] = useState([]);
@@ -49,12 +48,6 @@ export default function OwnerDashboard() {
         <h2 className="text-2xl font-bold">No Store Found</h2>
         <p>It looks like your account is not associated with a store yet.</p>
         <p>Please contact support or create a store to get started.</p>
-        <button
-          onClick={logout}
-          className="mt-4 py-2 px-4 rounded-lg font-medium text-red-600 hover:bg-red-100 transition-colors"
-        >
-          Logout
-        </button>
       </div>
     );
   }
@@ -62,7 +55,6 @@ export default function OwnerDashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-8 font-sans">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg p-8">
-        {/* Header + Nav */}
         <div className="flex justify-between items-center mb-8 border-b pb-4">
           <h1 className="text-3xl font-bold text-gray-800">
             {store.name} Dashboard
@@ -78,26 +70,9 @@ export default function OwnerDashboard() {
             >
               Dashboard
             </button>
-            <button
-              onClick={() => setActiveTab("password")}
-              className={`py-2 px-4 rounded-lg font-medium transition-colors ${
-                activeTab === "password"
-                  ? "bg-indigo-600 text-white"
-                  : "text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Update Password
-            </button>
-            <button
-              onClick={() => logout()}
-              className="py-2 px-4 rounded-lg font-medium text-red-600 hover:bg-red-100 transition-colors"
-            >
-              Logout
-            </button>
           </nav>
         </div>
 
-        {/* Conditional Rendering based on activeTab */}
         {activeTab === "dashboard" && (
           <div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -164,12 +139,6 @@ export default function OwnerDashboard() {
               </table>
             </div>
           </div>
-        )}
-        {activeTab === "password" && (
-          <UpdatePassword
-            onPasswordUpdateSuccess={() => setActiveTab("dashboard")}
-            onCancel={() => setActiveTab("dashboard")}
-          />
         )}
       </div>
     </div>
