@@ -7,7 +7,6 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   const location = useLocation();
 
   if (!user) {
-    // Save where the user was going, so we can return after login
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

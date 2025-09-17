@@ -13,7 +13,6 @@ export default function Navbar() {
     navigate("/");
   };
 
-  // Role-based dashboard link
   const dashboardLink =
     user?.role === "admin"
       ? "/admin"

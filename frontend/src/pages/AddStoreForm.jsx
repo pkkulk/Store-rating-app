@@ -1,4 +1,4 @@
-// src/pages/AddStoreForm.jsx
+
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ export default function AddStoreForm() {
     name: '',
     address: '',
     email: '',
-    user_id: '', // Change 'owner_id' to 'user_id' here
+    user_id: '', 
   });
 
   const handleChange = (e) => {
@@ -74,7 +74,7 @@ export default function AddStoreForm() {
           <div>
             <label className="block text-sm font-medium text-gray-700">Owner ID</label>
             <input
-              name="user_id" // Change 'owner_id' to 'user_id' here
+              name="user_id"
               type="text"
               placeholder="Supabase User ID"
               value={form.user_id}

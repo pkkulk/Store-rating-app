@@ -25,7 +25,7 @@ export default function Signup() {
     try {
       const res = await api.post("/auth/signup", form);
       login(res.data);
-      alert("Signup successful ✅");
+      alert("Signup successful ");
       const redirectTo = searchParams.get("redirect") || (res.data.role === "admin" ? "/admin" : res.data.role === "owner" ? "/owner" : "/");
 
       navigate(redirectTo, { replace: true });

@@ -54,7 +54,6 @@ router.post("/add", async (req, res) => {
 
     if (storeError) throw storeError;
 
-    // Update user role → owner
     const { error: roleError } = await supabase
       .from("users")
       .update({ role: "owner" })

@@ -1,10 +1,8 @@
-// src/components/UserDashboard.jsx
 
 import React, { useState, useEffect, useContext } from "react";
 import api from "../api";
 import { AuthContext } from "../context/AuthContext";
 
-// Dummy data for demonstration
 const storesData = [
   { id: 1, name: "Sunrise Cafe", address: "123 Main St", avg_rating: 4.5 },
   { id: 2, name: "Book Nook", address: "456 Oak Ave", avg_rating: 3.8 },
@@ -23,17 +21,10 @@ export default function UserPage() {
     newPassword: "",
   });
 
-  // Fetch stores and user's ratings on component load
   useEffect(() => {
     const fetchStoresAndRatings = async () => {
       try {
-        // In a real app, you would fetch from your backend
-        // const storesRes = await api.get("/stores");
-        // const userRatingsRes = await api.get(`/users/${user.id}/ratings`);
-        
-        // Using dummy data for this example
         setStores(storesData);
-        // Pretend to fetch user's ratings
         setRatings({ 1: 5, 3: 4 }); 
       } catch (err) {
         console.error("Failed to fetch data", err);
@@ -42,7 +33,6 @@ export default function UserPage() {
     fetchStoresAndRatings();
   }, [user]);
 
-  // Filters stores based on search input
   const filteredStores = stores.filter(
     (store) =>
       store.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -55,8 +45,6 @@ export default function UserPage() {
       return;
     }
     try {
-      // In a real app, send to your backend
-      // await api.post("/ratings", { store_id: storeId, user_id: user.id, rating });
       setRatings({ ...ratings, [storeId]: rating });
       alert("Rating submitted successfully!");
     } catch (err) {
@@ -71,8 +59,6 @@ export default function UserPage() {
       return;
     }
     try {
-      // In a real app, send to your backend
-      // await api.put(`/users/${user.id}/password`, passwordForm);
       alert("Password updated successfully!");
       setPasswordForm({ oldPassword: "", newPassword: "" });
       setActiveTab("stores");

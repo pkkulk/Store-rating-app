@@ -17,7 +17,7 @@ export default function Login() {
     try {
       const res = await api.post("/auth/login", form);
       login(res.data);
-      alert("Login successful ✅");
+      alert("Login successful");
 
       const redirectQuery = searchParams.get("redirect");
       const redirect =

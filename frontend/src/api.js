@@ -8,7 +8,6 @@ const api = axios.create({
   withCredentials: true, 
 });
 
-// Optional: attach JWT token if you ever add auth
 api.interceptors.request.use((config) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));

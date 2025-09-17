@@ -9,7 +9,7 @@ export default function AddUserForm() {
     email: '',
     address: '',
     password: '',
-    role: 'user', // Default role for a new user
+    role: 'user',
   });
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ export default function AddUserForm() {
     try {
       await api.post('/auth/signup', form);
       alert('User added successfully ✅');
-      navigate('/admin'); // Navigate back to the admin dashboard
+      navigate('/admin'); 
     } catch (err) {
       alert(err.response?.data?.error || 'Failed to add user');
     }

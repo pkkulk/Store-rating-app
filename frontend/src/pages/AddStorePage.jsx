@@ -15,20 +15,18 @@ export default function AddStorePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Insert store into DB
       const res = await api.post("/stores/add", {
         name: form.name,
         address: form.address,
         email: form.email,
-        user_id: user.id, // will be set as owner_id
+        user_id: user.id,
       });
 
-      // Update AuthContext so user becomes an owner immediately
       const updatedUser = { ...user, role: "owner" };
       login(updatedUser);
 
       alert("✅ Store added successfully! You are now a Store Owner.");
-      navigate("/owner"); // redirect to owner dashboard
+      navigate("/owner");
     } catch (err) {
       alert(err.response?.data?.error || "Failed to add store");
     }
